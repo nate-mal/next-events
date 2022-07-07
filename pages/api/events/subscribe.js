@@ -1,17 +1,16 @@
 import excuteQuery from "../../../lib/db";
 
 export const subscribe = async (email) => {
-  const response = await excuteQuery({
-    query: `INSERT INTO subscribers(email) VALUES("${email}")`,
+  return excuteQuery({
+    query: `INSERT INTO subscribers(email) VALUES('${email}');`,
   });
-  return response;
 };
 export const checkDuplicate = async (email) => {
   const response = await excuteQuery({
-    query: `SELECT email FROM subscribers WHERE email = "${email}"`,
+    query: `SELECT * FROM subscribers WHERE email = '${email}'`,
   });
-  console.log(response);
-  if (response.length > 0) return true;
+  console.log("checkDuplicate" + response);
+  if (response.length != 0) return true;
   else return false;
 };
 
@@ -21,13 +20,16 @@ const Subscribe = async (req, res) => {
       const email = req.body.email;
       const duplicate = await checkDuplicate(email);
       if (duplicate) {
-        throw { message: "Email already subscribed" };
+        res.status(201).json({
+          message: `You already subscribed for our newsletter, thank you for that!`,
+        });
+      } else {
+        const response = await subscribe(email);
+        console.log(response);
+        res.status(201).json({
+          message: `You succesfully subscribed for our newsletter!`,
+        });
       }
-      const response = await subscribe(email);
-      console.log(response);
-      res.status(201).json({
-        message: `You succesfully subscribed for our newsletter!`,
-      });
     } catch (error) {
       console.log(error);
       res.status(422).json({
