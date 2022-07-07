@@ -16,19 +16,32 @@ export const checkDuplicate = async (email) => {
 
 const Subscribe = async (req, res) => {
   if (req.method === "POST") {
+    const email = req.body.email;
     try {
-      const email = req.body.email;
-      const duplicate = await checkDuplicate(email);
-      if (duplicate) {
+      const validEmail = (email) => {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+          return true;
+        }
+        return false;
+      };
+
+      if (!validEmail(email)) {
         res.status(201).json({
-          message: `You already subscribed for our newsletter, thank you for that!`,
+          message: `Invalid email address, check you input please!`,
         });
       } else {
-        const response = await subscribe(email);
-        console.log(response);
-        res.status(201).json({
-          message: `You succesfully subscribed for our newsletter!`,
-        });
+        const duplicate = await checkDuplicate(email);
+        if (duplicate) {
+          res.status(201).json({
+            message: `You already subscribed for our newsletter, thank you for that!`,
+          });
+        } else {
+          const response = await subscribe(email);
+          console.log(response);
+          res.status(201).json({
+            message: `You succesfully subscribed for our newsletter!`,
+          });
+        }
       }
     } catch (error) {
       console.log(error);
