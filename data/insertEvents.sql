@@ -1,0 +1,48 @@
+-- INSERT INTO events (
+--     title,
+--     description, 
+--     image,
+--     isFeatured,
+--     location,
+--     date
+--     )
+-- VALUES(
+--     'Programing for everyone',
+--     'Everyone can learn to code! Yes, everyone! In this live event, we are going to go through all the key basics and get you started with programming as well.',
+--      'images/coding-event.jpg',
+--      true,
+--      'Somestreet 25, 12345 San Somewhereo',
+--      '2021-05-12'
+--        );
+-- INSERT INTO events (
+--     title,
+--     description, 
+--     image,
+--     isFeatured,
+--     location,
+--     date
+--     )
+-- VALUES(
+--     'Party tonight',
+--     'Come to the party.',
+--      'images/coding-event.jpg',
+--      true,
+--      'Somestreet 34, 12345 Chicago, Illinois',
+--      '202-05-12'
+--        );
+-- INSERT INTO events (
+--     title,
+--     description, 
+--     image,
+--     isFeatured,
+--     location,
+--     date
+--     )
+-- VALUES(
+--     'Networking for extroverts',
+--     'You probably need no help with networking in general. But focusing your energy correctly - that is something where most people can improve.',
+--      'images/city-event.jpg',
+--      false,
+--      'My Street 15, 10115 Broke City',
+--      '2021-07-10'
+--        );

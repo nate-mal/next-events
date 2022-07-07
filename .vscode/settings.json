@@ -1,0 +1,43 @@
+{
+  "window.zoomLevel": 1,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "askForPassword": true,
+      "driver": "PostgreSQL",
+      "name": "postgres1",
+      "database": "postgres",
+      "username": "postgres"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "http://ftp.nate-mal.c1.is/",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "mysql",
+      "database": "misc",
+      "username": "nate-misc",
+      "password": "P(7*qRzHEo2P  "
+    },
+    {
+      "pgOptions": {
+        "ssl": {
+          "rejectUnauthorized": true
+        }
+      },
+      "previewLimit": 50,
+      "server": "ec2-52-49-120-150.eu-west-1.compute.amazonaws.com",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "next-e",
+      "database": "d9qbl0l9f110f3",
+      "username": "leiqpmjhkedyrn",
+      "password": "c0bc2d51d421a9e8b791979ddc2dde0df16589fad4f41871cfc706a42d1b3636"
+    }
+  ]
+}
