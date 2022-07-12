@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import classes from "./new-comment.module.css";
-
+import NotificationContext from "../../store/notification-context";
 function NewComment(props) {
   const [isInvalid, setIsInvalid] = useState(false);
   const [sendComment, setSendComment] = useState(false);
@@ -8,7 +8,7 @@ function NewComment(props) {
   const emailInputRef = useRef();
   const nameInputRef = useRef();
   const commentInputRef = useRef();
-
+  const notificationCtx = useContext(NotificationContext);
   async function sendCommentHandler(event) {
     event.preventDefault();
 

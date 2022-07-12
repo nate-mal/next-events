@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
 import Head from "next/head";
 
 // import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
@@ -10,10 +10,12 @@ import EventContent from "../../components/event-detail/event-content";
 import ErrorAlert from "../../components/ui/error-alert";
 import Comments from "../../components/input/comments";
 import axios from "axios";
+import NotificationContext from "../../store/notification-context";
 import { queryFeaturedEvents } from "../api/events/featured";
 function EventDetailPage(props) {
   const event = props.selectedEvent;
   const [comments, setComments] = useState(props.eventComments);
+  const notificationCtx = useContext(NotificationContext);
   if (!event) {
     return (
       <div className="center">
@@ -23,6 +25,11 @@ function EventDetailPage(props) {
   }
   const newCommentHandler = async (comment) => {
     console.log(comment);
+    notificationCtx.showNotification({
+      title: "Comment",
+      message: "Sending your comment...",
+      status: "pending",
+    });
     const response = await axios.post(
       `/api/events/${event.id}/comments`,
       comment
@@ -33,6 +40,11 @@ function EventDetailPage(props) {
       const updatedComments = await data.json();
       console.log(updatedComments);
       setComments(updatedComments);
+      notificationCtx.showNotification({
+        title: "Comment",
+        message: "Comment successfully added",
+        status: "success",
+      });
       return { status: "ok" };
     }
   };

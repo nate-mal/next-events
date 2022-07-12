@@ -34,6 +34,7 @@ const Subscribe = async (req, res) => {
         if (duplicate) {
           res.status(201).json({
             message: `You already subscribed for our newsletter, thank you for that!`,
+            duplicate: true,
           });
         } else {
           const response = await subscribe(email);

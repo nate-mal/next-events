@@ -5,27 +5,51 @@ import NewsletterRegistration from "../components/input/newsletter-registration"
 import { queryFeaturedEvents } from "./api/events/featured";
 import axios from "axios";
 import useSWR from "swr";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import NotificationContext from "../store/notification-context";
 function HomePage(props) {
   const [subMessage, setSubMessage] = useState();
-
+  const notificationCtx = useContext(NotificationContext);
   const subscribeHandler = async (email) => {
+    notificationCtx.showNotification({
+      title: "Subscribe",
+      message: "We are almost there",
+      status: "pending",
+    });
     axios
       .post("/api/events/subscribe", {
         email: email,
       })
       .then(function (response) {
         console.log(response);
-        return response.data.message;
+        return response.data;
       })
       .then((data) => {
         console.log(data);
-        setSubMessage(data);
+        setSubMessage(data.message);
+        if (data.duplicate) {
+          notificationCtx.showNotification({
+            title: "Subscribe",
+            message: data.message,
+            status: "error",
+          });
+        } else {
+          notificationCtx.showNotification({
+            title: "Subscribe",
+            message: data.message,
+            status: "success",
+          });
+        }
       })
       .catch(function (error) {
         console.log(error);
         console.log(error.response.data.error.message);
         setSubMessage(error.response.data.error.message);
+        notificationCtx.showNotification({
+          title: "Subscribe",
+          message: error.response.data.error.message,
+          status: "error",
+        });
       });
   };
 
